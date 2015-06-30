@@ -1,5 +1,5 @@
 class profile::mesos(
 
-) inherits ::mesos::params {
+) inherits ::profile::mesos::params {
   require ::profile::common
 }

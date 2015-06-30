@@ -4,6 +4,8 @@ class profile::docker::host(
   $images = $::profile::docker::params::default_images
 ) inherits ::profile::docker::params {
 
+  
+
   validate_array($users)
   validate_hash($images, $runs)
   
