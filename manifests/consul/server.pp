@@ -19,7 +19,7 @@ class profile::consul::server(
     config_hash => {
       'bootstrap_expect' => $bootstrap_expect,
       'client_addr' => '0.0.0.0',
-#      'bind_addr' => $bind_addr,
+      'bind_addr' => $bind_addr,
       'datacenter' => $datacenter,
       'node_name' => $::hostname,
       'data_dir' => $data_dir,

@@ -1,2 +1,1 @@
-class profile::mesos::params  {
-}
+class profile::mesos::params { }

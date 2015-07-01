@@ -18,7 +18,7 @@ class profile::consul::agent(
     config_hash => {
       'datacenter' => $datacenter,
       'node_name' => $::hostname,
-#      'bind_addr' => $bind_addr,
+      'bind_addr' => $bind_addr,
       'retry_join' => [$server],
       'data_dir' => $data_dir,
       'log_level' => 'INFO'
@@ -26,6 +26,7 @@ class profile::consul::agent(
   }
 
   firewall { "000 forward to ${firewall_chain} chain":
+    ensure => present,
     chain => 'INPUT',
     jump => $firewall_chain,
   }
