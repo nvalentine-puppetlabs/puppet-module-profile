@@ -8,21 +8,11 @@ class profile::vsphere_broker(
   multi_validate_re($vcenter_server, $vcenter_user, $vcenter_password, '^.+$')
   validate_hash($addtl_gems)
 
-  # isn't this a core Facter fact?!?!
-  if $::master == $::hostname { $is_master = true } else { $is_master = false } 
-
   $gems = merge($addtl_gems, $default_gems)
   validate_hash($gems)
 
-  if $is_master {
-    $gemtype = '::profile::pe::puppetserver::gem'
-    $gems_defaults = { 'ensure' => 'present', } 
-  } else {
-    $gemtype = 'package'
-    $gems_defaults = { 'ensure' => 'present', 'provider' => 'pe_gem', }
-  }
-
-  create_resources($gemtype, $gems, $gems_defaults)
+  $gems_defaults = { 'ensure' => 'present', 'provider' => 'pe_gem', }
+  create_resources('package', $gems, $gems_defaults)
 
   file { 'vCenter config file':
     ensure => file,

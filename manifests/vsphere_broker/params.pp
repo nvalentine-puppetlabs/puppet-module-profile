@@ -4,7 +4,7 @@ class profile::vsphere_broker::params {
   }
 
   $default_gems = {
-    'rbvmomi' => { 'ensure' => 'present' },
+    'rbvmomi' => { 'ensure' => '1.8.2', },
     'hocon' => { 'ensure' => 'present' }
   }
 }
