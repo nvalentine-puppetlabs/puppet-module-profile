@@ -1,0 +1,21 @@
+class weblogic::config inherits ::weblogic::params {
+
+  $gui_admin = $::weblogic::gui_admin
+  validate_bool($gui_admin)
+
+  require ::epel
+  
+  if $gui_admin {
+    Exec { path => ['/bin','/sbin','/usr/bin','/usr/sbin','/usr/local/bin'], logoutput => true, }
+
+    exec { 'enable GUI admin tools':
+      command => "yum -y groupinstall 'Xfce'",
+      unless => 'rpm -qa | grep -i xfce',
+      timeout => 0,
+    }
+
+    package { [ 'firefox', 'x2goserver', 'x2goserver-xsession' ]: ensure => installed, } ->
+    package { ['NetworkManager', 'NetworkManager-gnome']: ensure => absent, } ~>
+    reboot { 'reset network after NetworkManager purge': }
+  }
+}

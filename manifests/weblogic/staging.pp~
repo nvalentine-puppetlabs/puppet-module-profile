@@ -1,0 +1,16 @@
+class profile::weblogic::staging inherits ::profile::weblogic::params {
+
+  $source = $::weblogic::source
+  $version = $::weblogic::version
+  validate_re($source, '^.+$')
+  validate_re("${version}", '^\d+$')
+  
+  require ::staging
+
+  staging::file { "WebLogic ${version} installer":
+    name => "wls${version}_generic.jar",
+    source  => $source,
+    timeout => '3000',
+  }
+
+}
